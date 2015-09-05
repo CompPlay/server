@@ -17,13 +17,22 @@ var my_profile = require('./routes/my_profile');
 
 var app = express();
 
-mongoose.connect("mongodb://");
+mongoose.connect('mongodb://heroku_919pg489:g4ka59dedu2h3rf9t3ollo101n@ds061391.mongolab.com:61391/heroku_919pg489');
+
+/*
+
+Hostname:   us-cdbr-azure-east-b.cloudapp.net
+Username:   b0e812d8bf4e3e
+Password:   124f7801
+Database:   complaydb
+
+*/
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.set('env');
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+// app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,7 +44,7 @@ app.use(passport.session());
 
 // passport config lmao
 var User = require('./models/User');
-passport.use(new LocalStrategy(Seller.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(function(user, done){
     done(null, user._id)
 });
@@ -44,6 +53,8 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
     });
 });
+
+
 
 /* ROUTES */
 app.use('/', index);
@@ -62,19 +73,13 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.send('Error lol');
   });
 }
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  res.send('Error lol');
 });
 
 module.exports = app;

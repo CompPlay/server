@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/download', function(req, res) {
-	res.download('public/CompPlay.apk');
+	res.redirect('http://google.com/');
 });
 
 module.exports = router;

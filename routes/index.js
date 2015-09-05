@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	res.render('index');
+	res.sendFile('../public/complay.html');
 });
 
 router.get('/download', function(req, res) {
-	res.download('public/CompPlay.apk');
+	res.redirect('http://google.com/');
 });
 
 module.exports = router;
